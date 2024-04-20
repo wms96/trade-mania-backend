@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\ChatEvent;
-use App\Events\DirectMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $loggedInUserId = Auth::id();
         $keyword = $request->get('keyword');

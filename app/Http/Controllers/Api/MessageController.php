@@ -3,19 +3,15 @@
     namespace App\Http\Controllers\Api;
 
     use App\Events\ChatEvent;
-    use App\Events\DirectMessageEvent;
-    use App\Events\NewMessage;
     use App\Http\Controllers\Controller;
     use App\Models\Message;
-    use App\Models\User;
+    use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\DB;
 
     class MessageController extends Controller
     {
-
-        public function index(Request $request): \Illuminate\Http\JsonResponse
+        public function index(Request $request): JsonResponse
         {
             $loggedInUserId = Auth::id();
             $toUserId = $request->get('to_user_id');
@@ -53,7 +49,7 @@
             return response()->json($conversations);
 
         }
-        public function send(Request $request)
+        public function send(Request $request): JsonResponse
         {
             $validatedData = $request->validate([
                 'content' => 'required|string', // Add validation as necessary

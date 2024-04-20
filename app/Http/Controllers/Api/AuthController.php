@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequestUser;
 use App\Http\Requests\RegisterRequestUser;
@@ -11,7 +12,8 @@ use App\Http\Requests\RegisterRequestUser;
 class AuthController extends Controller
 {
 
-    public function register(RegisterRequestUser $request) {
+    public function register(RegisterRequestUser $request): JsonResponse
+    {
         $user = new User([
             'email'     => $request->email,
             'name'      => $request->name,
@@ -29,13 +31,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(LoginRequestUser $request) {
+    public function login(LoginRequestUser $request): JsonResponse
+    {
         $data = $request->only('email', 'password');
 
         if (!Auth::attempt($data)) {
             return response()->json([
                 'ok'    => false,
-                'user'  => 'Error de credenciales',
             ]);
         }
 
